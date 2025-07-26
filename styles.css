@@ -1,0 +1,509 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: bisque;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Fondo animado con íconos matemáticos */
+.animated-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.math-icon {
+    position: absolute;
+    font-size: 24px;
+    color: rgba(139, 69, 19, 0.3);
+    animation: floatDiagonal 8s linear infinite;
+    user-select: none;
+    font-weight: bold;
+}
+
+@keyframes floatDiagonal {
+    0% {
+        transform: translate(-50px, 100vh) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translate(100px, -100px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+.CalculadoraNormal{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: red;
+    border-radius: 10px;
+    width: 20vw;
+    height: 45vh;
+    opacity: 1;
+    transform: scale(1);
+    transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+}
+
+.CalculadoraCientifica{
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: #2c5aa0;
+    border-radius: 10px;
+    width: 45vw;
+    height: 51vh;
+    opacity: 1;
+    transform: scale(1);
+    transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+}
+
+/* Estados para transiciones entre calculadoras */
+.CalculadoraNormal.fade-out,
+.CalculadoraCientifica.fade-out {
+    opacity: 0;
+    transform: scale(0.95);
+}
+
+.CalculadoraNormal.fade-in,
+.CalculadoraCientifica.fade-in {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.CalculadoraCientifica input{
+    margin-bottom: 15px;
+    width: 95%;
+    padding: 15px;
+    font-size: 20px;
+    text-align: right;
+    border: 2px solid #333;
+    border-radius: 8px;
+    background-color: #fff;
+}
+
+.CalculadoraCientifica .BotonesContainer {
+    display: grid;
+    grid-template-columns: 2fr 2fr 1fr;
+    grid-gap: 15px;
+    width: 100%;
+    height: 100%;
+    flex-grow: 1;
+}
+
+.Menu{
+    background-color: #2c3e50;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    width: 25vw;
+    transform: translateX(-100%);
+    opacity: 0;
+    transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+    z-index: 1200;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.Menu.show {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.menu-header {
+    background-color: #34495e;
+    padding: 20px;
+    border-bottom: 2px solid #3498db;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 1000;
+    pointer-events: auto;
+}
+
+.menu-header h1 {
+    color: white;
+    margin: 0;
+    font-size: 24px;
+    flex: 1;
+}
+
+.clear-btn {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    z-index: 1003;
+    pointer-events: auto;
+    min-width: 60px;
+    flex-shrink: 0;
+}
+
+.clear-btn:hover {
+    background-color: #c0392b;
+    transform: translateY(-50%) scale(1.05);
+}
+
+.historial-container {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px;
+}
+
+.historial-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.historial-item {
+    background-color: #ecf0f1;
+    border-radius: 8px;
+    padding: 15px;
+    cursor: pointer;
+    transition: all 0.3s;
+    border-left: 4px solid #3498db;
+}
+
+.historial-item:hover {
+    background-color: #d5dbdb;
+    transform: translateX(5px);
+}
+
+.historial-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
+}
+
+.historial-operation {
+    font-size: 16px;
+    color: #2c3e50;
+    flex: 1;
+    margin-right: 10px;
+}
+
+.historial-tipo {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    min-width: 70px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.historial-result {
+    font-size: 18px;
+    font-weight: bold;
+    color: #27ae60;
+}
+
+.historial-time {
+    font-size: 12px;
+    color: #7f8c8d;
+    margin-top: 5px;
+}
+
+.copyright {
+    background-color: #2c3e50;
+    padding: 15px 20px;
+    border-top: 1px solid #34495e;
+    margin-top: auto;
+}
+
+.copyright p {
+    margin: 0;
+    font-size: 11px;
+    color: #95a5a6;
+    text-align: center;
+    letter-spacing: 0.5px;
+}
+
+.numeros-section {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    grid-gap: 8px;
+}
+
+.funciones-section {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    grid-gap: 8px;
+    align-content: start;
+}
+
+.controles-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    padding-left: 20px;
+}
+
+.numeros-section button,
+.funciones-section button,
+.controles-section button {
+    width: 100%;
+    height: 100%;
+    min-height: 50px;
+    font-size: 16px;
+    font-weight: bold;
+    border: 2px solid #333;
+    border-radius: 8px;
+    background-color: #f0f0f0;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.numeros-section button:hover,
+.funciones-section button:hover,
+.controles-section button:hover {
+    background-color: #e0e0e0;
+    transform: scale(1.05);
+}
+
+.funciones-section button {
+    background-color: #e3f2fd;
+    border-color: #2196F3;
+}
+
+.funciones-section button:hover {
+    background-color: #bbdefb;
+}
+
+.CalculadoraNormal input{
+    margin-bottom: 15px;
+    width: 95%;
+    padding: 15px;
+    font-size: 20px;
+    text-align: right;
+    border: 2px solid #333;
+    border-radius: 8px;
+    background-color: #fff;
+}
+
+.BotonesContainer {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 8px;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    flex-grow: 1;
+}
+
+.BotonesContainer button {
+    width: 100%;
+    height: 100%;
+    min-height: 50px;
+    font-size: 18px;
+    font-weight: bold;
+    border: 2px solid #333;
+    border-radius: 8px;
+    background-color: #f0f0f0;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.BotonesContainer button:hover {
+    background-color: #e0e0e0;
+    transform: scale(1.05);
+}
+
+.BotonesContainer button:active {
+    background-color: #d0d0d0;
+    transform: scale(0.95);
+}
+
+header{
+    position: fixed;
+    top: 10px;
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    width: 100%;
+}
+
+:root{
+    --clr: #262433
+}
+
+.Historial{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    order: -1;
+    margin-left: 1%;
+    background-color: #fff;
+    height: 8vh;
+    width: 3.5vw;
+    border-radius: 20px;
+    z-index: 1100;
+}
+
+.Historial ion-icon{
+    font-size: 36px;
+    cursor: pointer;
+    margin-left: 8px;
+}
+
+.navigation {
+    width: 10%;
+    height: 70px;
+    background: #fff;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    z-index: 1;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding-right: 30px;
+    margin-right: 20px;
+}
+
+.navigation ul {
+    display: flex;
+    width: 140px;
+}
+
+.navigation ul li {
+    position: relative;
+    list-style: none;
+    width: 70px;
+    height: 70px;
+    z-index: 1;
+}
+
+.navigation ul li a {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    font-weight: 500;
+}
+
+.navigation ul li a .icon {
+    position: relative;
+    display: block;
+    line-height: normal;
+    font-size: 1.5em;
+    text-align: center;
+    transition: 0.5s;
+    color: #000;
+    opacity: 0.75;
+}
+
+.navigation ul li.active a .icon {
+    transform: translateY(-8px);
+    opacity: 1;
+    color: #29fd;
+}
+
+.indicator {
+    position: absolute;
+    top: -10px;
+    width: 70px;
+    height: 70px;
+    border-bottom-left-radius: 35px;
+    border-bottom-right-radius: 35px;
+    border: 6px solid var(--clr);
+    background: var(--clr);
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.indicator::before {
+    content: "";
+    position: absolute;
+    top: 4px;
+    left: -25.75px;
+    width: 20px;
+    height: 20px;
+    border-top-right-radius: 20px;
+    box-shadow: 4px -6px 0 2px var(--clr);
+}
+
+.indicator::after {
+    content: "";
+    position: absolute;
+    top: 4px;
+    right: -25.75px;
+    width: 20px;
+    height: 20px;
+    border-top-left-radius: 20px;
+    box-shadow: -4px -6px 0 2px var(--clr);
+    z-index: -1;
+}
+
+.navigation ul li:nth-child(2).active ~ .indicator {
+    transform: translateX(calc(70px * 1));
+}
+
+.navigation ul li:nth-child(3).active ~ .indicator {
+    transform: translateX(calc(70px * 2));
+}
+
+.navigation ul li:nth-child(4).active ~ .indicator {
+    transform: translateX(calc(70px * 3));
+}
+
+.navigation ul li:nth-child(5).active ~ .indicator {
+    transform: translateX(calc(70px * 4));
+}
+
+.indicator span {
+    position: absolute;
+    bottom: 3px;
+    width: 60px;
+    height: 60px;
+    border: 4px solid #29fd;
+    background: #fff;
+    border-radius: 50%;
+    transform-origin: bottom;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    transform: scale(0.85);
+}

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora</title>
+    <link rel="stylesheet" href="styles.css">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</head>
+<body>
+    <div class="animated-background" id="animatedBg"></div>
+
+    <header>
+        <div class="Historial">
+            <ion-icon name="menu-outline"></ion-icon>
+        </div>
+        <div class="navigation">
+            <ul>
+                <li class="list active">
+                    <a href="#">
+                        <span class="icon">
+                            <ion-icon name="calculator"></ion-icon>
+                        </span>
+                    </a>
+                </li>
+                <li class="list">
+                    <a href="#">
+                        <span class="icon">
+                            <ion-icon name="analytics-outline"></ion-icon>
+                        </span>
+                    </a>
+                </li>
+                <div class="indicator"><span></span></div>
+            </ul>
+        </div>
+    </header>
+
+    <div class="Menu">
+        <div class="menu-header">
+            <h1>Historial</h1>
+            <button id="clearHistorial" class="clear-btn">Limpiar</button>
+            
+        </div>
+        <div class="historial-container">
+            <div id="historialList" class="historial-list">
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; BriXelDev 2025</p>
+        </div>
+    </div>
+
+    <div class="CalculadoraNormal" id="calculadoraNormal">
+        <input type="text" id="input">
+        <div class="BotonesContainer">
+            <button onclick="numberToInput('1')">1</button>
+            <button onclick="numberToInput('2')">2</button>
+            <button onclick="numberToInput('3')">3</button>
+            <button onclick="numberToInput('4')">4</button>
+            <button onclick="numberToInput('5')">5</button>
+            <button onclick="numberToInput('6')">6</button>
+            <button onclick="numberToInput('7')">7</button>
+            <button onclick="numberToInput('8')">8</button>
+            <button onclick="numberToInput('9')">9</button>
+            <button onclick="numberToInput('0')">0</button>
+            <button onclick="numberToInput('+')">+</button>
+            <button onclick="numberToInput('-')">-</button>
+            <button onclick="numberToInput('*')">*</button>
+            <button onclick="numberToInput('/')">/</button>
+            <button onclick="numberToInput('(')">(</button>
+            <button onclick="numberToInput(')')">)</button>
+            <button onclick="CalculateResult()">=</button>
+            <button onclick="clearInput()">C</button>
+        </div>
+    </div>
+
+    <div class="CalculadoraCientifica" id="calculadoraCientifica">
+        <input type="text" id="inputCien">
+        <div class="BotonesContainer">
+            <div class="numeros-section">
+                <button onclick="numberToInputC('7')">7</button>
+                <button onclick="numberToInputC('8')">8</button>
+                <button onclick="numberToInputC('9')">9</button>
+                <button onclick="numberToInputC('4')">4</button>
+                <button onclick="numberToInputC('5')">5</button>
+                <button onclick="numberToInputC('6')">6</button>
+                <button onclick="numberToInputC('1')">1</button>
+                <button onclick="numberToInputC('2')">2</button>
+                <button onclick="numberToInputC('3')">3</button>
+                <button onclick="numberToInputC('0')">0</button>
+                <button onclick="numberToInputC('.')">.</button>
+                <div></div>
+            </div>
+            
+            <div class="funciones-section">
+                <button onclick="numberToInputC('+')">+</button>
+                <button onclick="numberToInputC('-')">-</button>
+                <button onclick="numberToInputC('*')">*</button>
+                <button onclick="numberToInputC('/')">/</button>
+                <button onclick="numberToInputC('(')">(</button>
+                <button onclick="numberToInputC(')')">)</button>
+                <button onclick="numberToInputC('sin(')">sin</button>
+                <button onclick="numberToInputC('cos(')">cos</button>
+                <button onclick="numberToInputC('tan(')">tan</button>
+                <button onclick="numberToInputC('sqrt(')">√</button>
+                <button onclick="numberToInputC('^')">^</button>
+                <button onclick="numberToInputC('log(')">log</button>
+            </div>
+            
+            <div class="controles-section">
+                <button onclick="CalculateResultC()" style="font-size: 20px;">=</button>
+                <button onclick="clearInputC()" style="font-size: 16px;">C</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="functions.js"></script>
+</body>
+</html>
